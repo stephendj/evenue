@@ -1,0 +1,1 @@
+c:\users\t-stepdj\documents\visual studio 2015\Projects\Evenue\Evenue.ClientApp\Evenue.ClientApp.csproj;x86
