@@ -1,2 +1,10 @@
 App.xbf
+AppShell.xbf
+Controls\PageHeader.xbf
 MainPage.xbf
+Styles\Styles.xbf
+Views\CommandBarPage.xbf
+Views\ContactPage.xbf
+Views\EventInfo.xbf
+Views\EventList.xbf
+Views\LandingPage.xbf

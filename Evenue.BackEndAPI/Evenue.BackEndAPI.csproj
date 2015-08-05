@@ -251,6 +251,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\mobile%24EvenueBackEndAPI.pubxml" />
+    <None Include="Properties\PublishProfiles\mobile-EvenueBackEndAPI.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
