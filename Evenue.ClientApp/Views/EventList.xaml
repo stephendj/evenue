@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{StaticResource AppBarBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -34,7 +34,8 @@
                   CanReorderItems="True"
                   CanDragItems="True"
                   Grid.Row="1"
-                  Name="gridView">
+                  Name="gridView"
+                  Foreground="Black">
             <StackPanel Padding="10 10 10 10" MaxWidth="150">
                 <Rectangle Width="150" Height="100" Fill="Blue"></Rectangle>
                 <TextBlock HorizontalAlignment="Center" FontSize="18" Text="{Binding title}"></TextBlock>

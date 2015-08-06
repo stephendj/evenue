@@ -62,7 +62,8 @@
         <SplitView x:Name="RootSplitView"
                    DisplayMode="Inline"
                    OpenPaneLength="256"
-                   IsTabStop="False">
+                   IsTabStop="False"
+                   Background="AliceBlue">
             <SplitView.Pane>
                 <!-- A custom ListView to display the items in the pane.  The automation Name is set in the ContainerContentChanging event. -->
                 <controls:NavMenuListView x:Name="NavMenuList"

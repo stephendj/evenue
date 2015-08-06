@@ -94,6 +94,7 @@
       <RootProperty Name="DisplayMode" />
       <RootProperty Name="OpenPaneLength" />
       <RootProperty Name="IsTabStop" />
+      <RootProperty Name="Background" />
       <RootProperty Name="Pane" />
       <RootProperty Name="Content" />
     </RootType>
@@ -244,6 +245,7 @@
       <RootProperty Name="CanReorderItems" />
       <RootProperty Name="CanDragItems" />
       <RootProperty Name="Items" />
+      <RootProperty Name="Foreground" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.StackPanel">
       <RootProperty Name="Padding" />

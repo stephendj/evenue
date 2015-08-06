@@ -120,6 +120,5 @@ C:\Users\t-stepdj\Documents\Visual Studio 2015\Projects\Evenue\Evenue.BackEndAPI
 C:\Users\t-stepdj\Documents\Visual Studio 2015\Projects\Evenue\Evenue.BackEndAPI\bin\ru\System.Spatial.resources.dll
 C:\Users\t-stepdj\Documents\Visual Studio 2015\Projects\Evenue\Evenue.BackEndAPI\bin\zh-Hans\System.Spatial.resources.dll
 C:\Users\t-stepdj\Documents\Visual Studio 2015\Projects\Evenue\Evenue.BackEndAPI\bin\zh-Hant\System.Spatial.resources.dll
-C:\Users\t-stepdj\Documents\Visual Studio 2015\Projects\Evenue\Evenue.BackEndAPI\obj\Release\Evenue.BackEndAPI.csprojResolveAssemblyReference.cache
 C:\Users\t-stepdj\Documents\Visual Studio 2015\Projects\Evenue\Evenue.BackEndAPI\obj\Release\Evenue.BackEndAPI.dll
 C:\Users\t-stepdj\Documents\Visual Studio 2015\Projects\Evenue\Evenue.BackEndAPI\obj\Release\Evenue.BackEndAPI.pdb
