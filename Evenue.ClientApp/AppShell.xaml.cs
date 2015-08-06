@@ -39,15 +39,15 @@ namespace Evenue.ClientApp
             },
             new NavMenuItem()
             {
-                Symbol = Symbol.Contact,
-                Label = "Profile Page",
-                DestPage = typeof(ContactPage)
+                Symbol = Symbol.Home,
+                Label = "My Events",
+                DestPage = typeof(MyEvents)
             },
             new NavMenuItem()
             {
                 Symbol = Symbol.Edit,
-                Label = "New Event",
-                DestPage = typeof(CommandBarPage)
+                Label = "Create Event",
+                DestPage = typeof(CreateEvent)
             },
             });
 
