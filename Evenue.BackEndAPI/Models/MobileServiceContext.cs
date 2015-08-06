@@ -28,6 +28,7 @@ namespace Evenue.BackEndAPI.Models
         }
 
         public DbSet<TodoItem> TodoItems { get; set; }
+        public DbSet<Event> Events { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

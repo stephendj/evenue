@@ -31,15 +31,15 @@ namespace Evenue.BackEndAPI
     {
         protected override void Seed(MobileServiceContext context)
         {
-            List<TodoItem> todoItems = new List<TodoItem>
+            List<Event> Events = new List<Event>
             {
-                new TodoItem { Id = Guid.NewGuid().ToString(), Text = "First item", Complete = false },
-                new TodoItem { Id = Guid.NewGuid().ToString(), Text = "Second item", Complete = false },
+                new Event { Id = Guid.NewGuid().ToString(), title = "TechFemme 2015", location = "Bandung", startDate = new DateTime(2015, 9, 12, 9, 0, 0), endDate = new DateTime(2015, 9, 12, 15, 30, 0), desc = "Woman in IT", category = "Technology", imageurl = "none", fee = 0 },
+                new Event { Id = Guid.NewGuid().ToString(), title = "TechFemme 2014", location = "Jakarta", startDate = new DateTime(2015, 9, 12, 9, 0, 0), endDate = new DateTime(2015, 9, 12, 15, 30, 0), desc = "Woman in IT", category = "Technology", imageurl = "none", fee = 0 },
             };
 
-            foreach (TodoItem todoItem in todoItems)
+            foreach (Event Event in Events)
             {
-                context.Set<TodoItem>().Add(todoItem);
+                context.Set<Event>().Add(Event);
             }
 
             base.Seed(context);
