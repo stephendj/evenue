@@ -8,6 +8,10 @@
     <RootPropertyPathName Name="Width" />
     <RootPropertyPathName Name="HorizontalAlignment" />
     <RootPropertyPathName Name="title" />
+    <RootPropertyPathName Name="Desc" />
+    <RootPropertyPathName Name="StartDate" />
+    <RootPropertyPathName Name="Location" />
+    <RootPropertyPathName Name="Title" />
   </Roots.PropertyPathNames>
   <Roots.RootTypes>
     <RootType FullName="Windows.UI.Xaml.Application">
@@ -246,6 +250,7 @@
       <RootProperty Name="CanDragItems" />
       <RootProperty Name="Items" />
       <RootProperty Name="Foreground" />
+      <RootProperty Name="ItemTemplate" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.StackPanel">
       <RootProperty Name="Padding" />

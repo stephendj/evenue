@@ -34,120 +34,28 @@
                   CanReorderItems="True"
                   CanDragItems="True"
                   Grid.Row="1"
-                  Name="gridView"
+                  Name="eventListGridView"
                   Foreground="Black">
-            <StackPanel Padding="10 10 10 10" MaxWidth="150">
-                <Rectangle Width="150" Height="100" Fill="Blue"></Rectangle>
-                <TextBlock HorizontalAlignment="Center" FontSize="18" Text="{Binding title}"></TextBlock>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Location :</TextBlock>
-                    <TextBlock FontSize="15" Text="Jakarta"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Date :</TextBlock>
-                    <TextBlock FontSize="15" Text="12/02/2015"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock FontSize="15">Description :</TextBlock>
-                    <TextBlock FontSize="15" TextWrapping="Wrap" Text="Lorem Ipsum Dolor sit amet..."></TextBlock>
-                </StackPanel>
-            </StackPanel>
-            <StackPanel Padding="10 10 10 10" MaxWidth="150">
-                <Rectangle Width="150" Height="100" Fill="Pink"></Rectangle>
-                <TextBlock HorizontalAlignment="Center" FontSize="18" Text="{Binding title}"></TextBlock>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Location :</TextBlock>
-                    <TextBlock FontSize="15" Text="Jakarta"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Date :</TextBlock>
-                    <TextBlock FontSize="15" Text="12/02/2015"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock FontSize="15">Description :</TextBlock>
-                    <TextBlock FontSize="15" TextWrapping="Wrap" Text="Lorem Ipsum Dolor sit amet..."></TextBlock>
-                </StackPanel>
-            </StackPanel>
-            <StackPanel Padding="10 10 10 10" MaxWidth="150">
-                <Rectangle Width="150" Height="100" Fill="Purple"></Rectangle>
-                <TextBlock HorizontalAlignment="Center" FontSize="18" Text="{Binding title}"></TextBlock>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Location :</TextBlock>
-                    <TextBlock FontSize="15" Text="Jakarta"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Date :</TextBlock>
-                    <TextBlock FontSize="15" Text="12/02/2015"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock FontSize="15">Description :</TextBlock>
-                    <TextBlock FontSize="15" TextWrapping="Wrap" Text="Lorem Ipsum Dolor sit amet..."></TextBlock>
-                </StackPanel>
-            </StackPanel>
-            <StackPanel Padding="10 10 10 10" MaxWidth="150">
-                <Rectangle Width="150" Height="100" Fill="Brown"></Rectangle>
-                <TextBlock HorizontalAlignment="Center" FontSize="18" Text="{Binding title}"></TextBlock>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Location :</TextBlock>
-                    <TextBlock FontSize="15" Text="Jakarta"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Date :</TextBlock>
-                    <TextBlock FontSize="15" Text="12/02/2015"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock FontSize="15">Description :</TextBlock>
-                    <TextBlock FontSize="15" TextWrapping="Wrap" Text="Lorem Ipsum Dolor sit amet..."></TextBlock>
-                </StackPanel>
-            </StackPanel>
-            <StackPanel Padding="10 10 10 10" MaxWidth="150">
-                <Rectangle Width="150" Height="100" Fill="Green"></Rectangle>
-                <TextBlock HorizontalAlignment="Center" FontSize="18" Text="{Binding title}"></TextBlock>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Location :</TextBlock>
-                    <TextBlock FontSize="15" Text="Jakarta"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Date :</TextBlock>
-                    <TextBlock FontSize="15" Text="12/02/2015"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock FontSize="15">Description :</TextBlock>
-                    <TextBlock FontSize="15" TextWrapping="Wrap" Text="Lorem Ipsum Dolor sit amet..."></TextBlock>
-                </StackPanel>
-            </StackPanel>
-            <StackPanel Padding="10 10 10 10" MaxWidth="150">
-                <Rectangle Width="150" Height="100" Fill="Yellow"></Rectangle>
-                <TextBlock HorizontalAlignment="Center" FontSize="18" Text="{Binding title}"></TextBlock>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Location :</TextBlock>
-                    <TextBlock FontSize="15" Text="Jakarta"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Date :</TextBlock>
-                    <TextBlock FontSize="15" Text="12/02/2015"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock FontSize="15">Description :</TextBlock>
-                    <TextBlock FontSize="15" TextWrapping="Wrap" Text="Lorem Ipsum Dolor sit amet..."></TextBlock>
-                </StackPanel>
-            </StackPanel>
-            <StackPanel Padding="10 10 10 10" MaxWidth="150">
-                <Rectangle Width="150" Height="100" Fill="Red"></Rectangle>
-                <TextBlock HorizontalAlignment="Center" FontSize="18" Text="{Binding title}"></TextBlock>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Location :</TextBlock>
-                    <TextBlock FontSize="15" Text="Jakarta"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Date :</TextBlock>
-                    <TextBlock FontSize="15" Text="12/02/2015"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock FontSize="15">Description :</TextBlock>
-                    <TextBlock FontSize="15" TextWrapping="Wrap" Text="Lorem Ipsum Dolor sit amet..."></TextBlock>
-                </StackPanel>
-            </StackPanel>
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Padding="10 10 10 10" MaxWidth="150">
+                        <Rectangle Width="150" Height="100" Fill="Blue"></Rectangle>
+                        <TextBlock HorizontalAlignment="Center" FontSize="18" Text="{Binding Title}"></TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="15">Location :</TextBlock>
+                            <TextBlock FontSize="15" Text="{Binding Location}"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="15">Date :</TextBlock>
+                            <TextBlock FontSize="15" Text="{Binding StartDate}"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock FontSize="15">Description :</TextBlock>
+                            <TextBlock FontSize="15" TextWrapping="Wrap" Text="{Binding Desc}"></TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </GridView.ItemTemplate>
         </GridView>
     </Grid>
 </Page>

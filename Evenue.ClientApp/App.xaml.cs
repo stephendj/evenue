@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Evenue.ClientApp.Views;
+using Microsoft.WindowsAzure.MobileServices;
 
 namespace Evenue.ClientApp
 {
@@ -24,10 +25,11 @@ namespace Evenue.ClientApp
     /// </summary>
     sealed partial class App : Application
     {
-        public static Microsoft.WindowsAzure.MobileServices.MobileServiceClient
-    evenueClient = new Microsoft.WindowsAzure.MobileServices.MobileServiceClient(
-        "https://evenuebackendapi.azure-mobile.net/",
-        "vbmAPhAfNBjgoWvKRfzdWPEYmRrRbj98");
+        // Set the mobile service url
+        public static MobileServiceClient MobileService = new MobileServiceClient(
+              "https://evenuebackendapi.azure-mobile.net/",
+              "KARbdHWrureQLvbQssugDIHQQFswjR45"
+        );
 
 
         /// <summary>
