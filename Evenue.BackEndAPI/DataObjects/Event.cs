@@ -10,8 +10,13 @@ namespace Evenue.BackEndAPI.DataObjects
         public string startDate { get; set; }
         public string endDate { get; set; }
         public string desc { get; set; }
-        public string imageurl { get; set; }
         public string category { get; set; }
         public int fee { get; set; }
+        
+        // For storing images data
+        public string containerName { get; set; }
+        public string resourceName { get; set; }
+        public string sasQueryString { get; set; }
+        public string imageUri { get; set; }
     }
 }

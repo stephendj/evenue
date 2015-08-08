@@ -9,6 +9,7 @@ namespace Evenue.ClientApp.Models
 {
     public class Event
     {
+        [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
 
         [JsonProperty(PropertyName = "title")]
@@ -26,13 +27,22 @@ namespace Evenue.ClientApp.Models
         [JsonProperty(PropertyName = "desc")]
         public string Desc { get; set; }
 
-        [JsonProperty(PropertyName = "imagurl")]
-        public string Imageurl { get; set; }
-
         [JsonProperty(PropertyName = "category")]
         public string Category { get; set; }
 
         [JsonProperty(PropertyName = "fee")]
         public int Fee { get; set; }
+
+        [JsonProperty(PropertyName = "containerName")]
+        public string ContainerName { get; set; }
+
+        [JsonProperty(PropertyName = "resourceName")]
+        public string ResourceName { get; set; }
+
+        [JsonProperty(PropertyName = "sasQueryString")]
+        public string SasQueryString { get; set; }
+
+        [JsonProperty(PropertyName = "imageUri")]
+        public string ImageUri { get; set; }
     }
 }

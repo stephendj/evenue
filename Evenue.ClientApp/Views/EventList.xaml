@@ -38,8 +38,8 @@
                   Foreground="Black">
             <GridView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Padding="10 10 10 10" MaxWidth="150">
-                        <Rectangle Width="150" Height="100" Fill="Blue"></Rectangle>
+                    <StackPanel Padding="10 10 10 10" MaxWidth="200">
+                        <Image Source="{Binding ImageUri}" Width="175" Height="125" Stretch="Fill"></Image>
                         <TextBlock HorizontalAlignment="Center" FontSize="18" Text="{Binding Title}"></TextBlock>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontSize="15">Location :</TextBlock>
