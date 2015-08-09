@@ -63,13 +63,7 @@
                 <!--Category-->
                 <TextBlock Grid.Row="6" Grid.Column="0" Text="Category" Style="{StaticResource PageTitleTextBlockStyle}" Margin="15 0 15 0" VerticalAlignment="Center"/>
                 <ComboBox x:Name="categoryComboBox" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="15 0 15 0">
-                    <ComboBoxItem>Music</ComboBoxItem>
-                    <ComboBoxItem>Food &amp; Drink</ComboBoxItem>
-                    <ComboBoxItem>Sport</ComboBoxItem>
-                    <ComboBoxItem>Art &amp; Culture</ComboBoxItem>
-                    <ComboBoxItem>Party</ComboBoxItem>
-                    <ComboBoxItem>Technology</ComboBoxItem>
-                    <ComboBoxItem>Other</ComboBoxItem>
+                  
                 </ComboBox>
 
                 <!--Fee-->

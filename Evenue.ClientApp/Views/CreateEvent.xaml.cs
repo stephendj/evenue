@@ -8,10 +8,9 @@ using Windows.UI;
 using Windows.UI.Popups;
 using Windows.Storage.Pickers;
 using Windows.Storage;
-using System.IO;
-using System.Reflection;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
+using System.Collections.Generic;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -24,10 +23,15 @@ namespace Evenue.ClientApp.Views
     {
         private IMobileServiceTable<Event> eventTable = App.MobileService.GetTable<Event>();
         private StorageFile image = null;
+        List<string> comboBoxItems = new List<string>()
+        {
+            "Music", "Food & Drink", "Sport", "Art & Culture", "Party", "Technology", "Other"
+        };
        
         public CreateEvent()
         {
             this.InitializeComponent();
+            categoryComboBox.ItemsSource = comboBoxItems;
         }
 
         // Validate all Fields
@@ -167,10 +171,10 @@ namespace Evenue.ClientApp.Views
                     Id = Guid.NewGuid().ToString(),
                     Title = titleTextBox.Text,
                     Location = locationTextBox.Text,
-                    StartDate = startDatePicker.Date.ToString("dd-MM-yyyy"),
-                    EndDate = endDatePicker.Date.ToString("dd-MM-yyyy"),
+                    StartDate = startDatePicker.Date.ToString("dd/MM/yyyy"),
+                    EndDate = endDatePicker.Date.ToString("dd/MM/yyyy"),
                     Desc = descTextBox.Text,
-                    Category = categoryComboBox.SelectedValue.ToString(),
+                    Category = categoryComboBox.SelectedItem.ToString(),
                     Fee = Int32.Parse(feeTextBox.Text)
                 };
                 

@@ -36,14 +36,28 @@ namespace Evenue.ClientApp.Views
 
         private async void RefreshEventList()
         {
-            events = await eventTable.ToCollectionAsync();
-
-            //// TODO #2: More advanced query that filters out completed items.  
-            //items = await todoTable
-            //   .Where(todoItem => todoItem.Complete == false)
-            //   .ToCollectionAsync();
-
+            try
+            {
+                events = await eventTable.ToCollectionAsync();
+            }
+            catch(Exception e)
+            {
+                ErrorText.Visibility = Visibility.Visible;
+            }
+            finally
+            {
+                ProgressRing.IsActive = false;
+            }
+            
             eventListGridView.ItemsSource = events;
+        }
+
+        private void eventListGridView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.Frame.Navigate(
+                 typeof(EventInfo),
+                 e.ClickedItem,
+                 new Windows.UI.Xaml.Media.Animation.DrillInNavigationTransitionInfo());
         }
     }
 }

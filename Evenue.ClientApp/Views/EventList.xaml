@@ -6,6 +6,8 @@
     xmlns:ctl="using:Evenue.ClientApp.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" 
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     mc:Ignorable="d">
 
     <Grid Background="{StaticResource AppBarBackgroundThemeBrush}">
@@ -14,6 +16,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <!--Progress Ring while loading items, and error text-->
+        <ProgressRing x:Name="ProgressRing" Width="100" Height="100" Visibility="Visible" Grid.Row="1" IsActive="True"></ProgressRing>
+        <TextBlock x:Name="ErrorText" Grid.Row="1" Visibility="Collapsed" Text="Connectivity error, please try again" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+        
         <ctl:PageHeader>
             <ctl:PageHeader.HeaderContent>
                 <Grid>
@@ -35,23 +41,44 @@
                   CanDragItems="True"
                   Grid.Row="1"
                   Name="eventListGridView"
-                  Foreground="Black">
+                  Foreground="Black"
+                  ItemClick="eventListGridView_ItemClick"
+                  IsItemClickEnabled="True">
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Padding="10 10 10 10" MaxWidth="200">
-                        <Image Source="{Binding ImageUri}" Width="175" Height="125" Stretch="Fill"></Image>
+                        <Grid>
+                            <Image Source="../Assets/noimage.jpg" Width="175" Height="125" Stretch="Fill"></Image>
+                            <Image Source="{Binding ImageUri}" Width="175" Height="125" Stretch="Fill">
+                                <Interactivity:Interaction.Behaviors>
+                                    <Core:IncrementalUpdateBehavior Phase="2"/>
+                                </Interactivity:Interaction.Behaviors>
+                            </Image>
+                        </Grid>
                         <TextBlock HorizontalAlignment="Center" FontSize="18" Text="{Binding Title}"></TextBlock>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontSize="15">Location :</TextBlock>
-                            <TextBlock FontSize="15" Text="{Binding Location}"></TextBlock>
+                            <TextBlock FontSize="15" Text="{Binding Location}">
+                                <Interactivity:Interaction.Behaviors>
+                                    <Core:IncrementalUpdateBehavior Phase="1"/>
+                                </Interactivity:Interaction.Behaviors>
+                            </TextBlock>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontSize="15">Date :</TextBlock>
-                            <TextBlock FontSize="15" Text="{Binding StartDate}"></TextBlock>
+                            <TextBlock FontSize="15" Text="{Binding StartDate}">
+                                <Interactivity:Interaction.Behaviors>
+                                    <Core:IncrementalUpdateBehavior Phase="1"/>
+                                </Interactivity:Interaction.Behaviors>
+                            </TextBlock>
                         </StackPanel>
                         <StackPanel Orientation="Vertical">
                             <TextBlock FontSize="15">Description :</TextBlock>
-                            <TextBlock FontSize="15" TextWrapping="Wrap" Text="{Binding Desc}"></TextBlock>
+                            <TextBlock FontSize="15" TextWrapping="Wrap" Text="{Binding Desc}">
+                                <Interactivity:Interaction.Behaviors>
+                                    <Core:IncrementalUpdateBehavior Phase="1"/>
+                                </Interactivity:Interaction.Behaviors>
+                            </TextBlock>
                         </StackPanel>
                     </StackPanel>
                 </DataTemplate>
