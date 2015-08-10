@@ -16,6 +16,7 @@ using Evenue.ClientApp.Models;
 using Windows.UI.Xaml.Controls.Maps;
 using Windows.Devices.Geolocation;
 using Windows.Services.Maps;
+using System.Diagnostics;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -71,6 +72,7 @@ namespace Evenue.ClientApp.Views
                 }
                 catch (Exception ex)
                 {
+                    Debug.WriteLine(ex.StackTrace.ToString());
                     UnknownLocationText.Visibility = Visibility.Visible;
                 }
             }

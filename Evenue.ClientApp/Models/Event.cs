@@ -44,5 +44,10 @@ namespace Evenue.ClientApp.Models
 
         [JsonProperty(PropertyName = "imageUri")]
         public string ImageUri { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("{0}, {1} ({2})", Title, Location, Category);
+        }
     }
 }

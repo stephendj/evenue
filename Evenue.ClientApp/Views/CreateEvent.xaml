@@ -80,12 +80,12 @@
                 <!--Browse Image-->
                 <TextBlock VerticalAlignment="Top" Grid.Row="8" Style="{StaticResource PageTitleTextBlockStyle}" Text="Image" Margin="15 15 0 0" />
                 <Grid Grid.Row="8" Grid.Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Button x:Name="BrowseButton" Click="BrowseImage" Grid.Column="0" VerticalAlignment="Top" Margin="15 15 15 0">Browse</Button>
-                    <Image Source="../Assets/noimage.jpg" Grid.Column="1" Width="175" Height="125" Stretch="Fill" Margin="0 15 0 0" x:Name="imagePreview" HorizontalAlignment="Left"/>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Button x:Name="BrowseButton" Click="BrowseImage" Grid.Row="0" VerticalAlignment="Top" Margin="15 15 15 0">Browse</Button>
+                    <Image Source="../Assets/noimage.jpg" Grid.Row="1" Width="175" Height="125" Stretch="Fill" Margin="15 15 0 0" x:Name="imagePreview" HorizontalAlignment="Left"/>
                 </Grid>
 
                 <!--Save Button & Progress Ring-->

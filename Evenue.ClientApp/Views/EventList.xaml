@@ -24,14 +24,19 @@
             <ctl:PageHeader.HeaderContent>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" x:Name="title" Style="{ThemeResource PageTitleTextBlockStyle}" Text="EVENT LIST" HorizontalAlignment="Left"/>
-                    <StackPanel Grid.Column="1" Margin="8 8 8 8" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                        <TextBlock xml:space="preserve" FontFamily="Segoe UI" VerticalAlignment="Center" FontSize="16">Search Location :</TextBlock>
-                        <TextBox Width="200" x:Name="location"></TextBox>
-                    </StackPanel>
+                    <AutoSuggestBox Grid.Column="1"
+                                    HorizontalAlignment="Stretch"
+                                    Margin="8 8 8 8"
+                                    x:Name="SearchBox" 
+                                    PlaceholderText="Search title, location, category"
+                                    QueryIcon="Find"
+                                    TextChanged="SearchBox_TextChanged"
+                                    SuggestionChosen="SearchBox_SuggestionChosen" 
+                                    Visibility="Visible" />
                 </Grid>
             </ctl:PageHeader.HeaderContent>
         </ctl:PageHeader>

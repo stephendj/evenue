@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Evenue.ClientApp.Models;
+using System.Diagnostics;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -31,33 +32,73 @@ namespace Evenue.ClientApp.Views
         public EventList()
         {
             this.InitializeComponent();
-            RefreshEventList();
+            RefreshEventList(null);
         }
 
-        private async void RefreshEventList()
+        // Refresh the item list each time we navigate to this page
+        private async void RefreshEventList(string query)
         {
-            try
+            if (query == null)
             {
-                events = await eventTable.ToCollectionAsync();
+                try
+                {
+                    events = await eventTable.ToCollectionAsync();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.StackTrace.ToString());
+                    ErrorText.Visibility = Visibility.Visible;
+                }
+                finally
+                {
+                    ProgressRing.IsActive = false;
+                    SearchBox.Visibility = Visibility.Visible;
+                }
+                eventListGridView.ItemsSource = events;
             }
-            catch(Exception e)
+            else
             {
-                ErrorText.Visibility = Visibility.Visible;
+                eventListGridView.ItemsSource = GetMatchingEvents(query).ToList<Event>();
             }
-            finally
-            {
-                ProgressRing.IsActive = false;
-            }
-            
-            eventListGridView.ItemsSource = events;
         }
 
+        // Navigate to Event information page and send over the Event object
         private void eventListGridView_ItemClick(object sender, ItemClickEventArgs e)
         {
             this.Frame.Navigate(
                  typeof(EventInfo),
                  e.ClickedItem,
                  new Windows.UI.Xaml.Media.Animation.DrillInNavigationTransitionInfo());
+        }
+
+        // returns an ordered list of location that matches the search query
+        public IEnumerable<Event> GetMatchingEvents(string query)
+        { 
+            return events 
+                .Where(c => c.Title.IndexOf(query, StringComparison.CurrentCultureIgnoreCase) > -1 || 
+                            c.Location.IndexOf(query, StringComparison.CurrentCultureIgnoreCase) > -1 || 
+                            c.Category.IndexOf(query, StringComparison.CurrentCultureIgnoreCase) > -1) 
+                .OrderByDescending(c => c.Title.StartsWith(query, StringComparison.CurrentCultureIgnoreCase)) 
+                .ThenByDescending(c => c.Location.StartsWith(query, StringComparison.CurrentCultureIgnoreCase)) 
+                .ThenByDescending(c => c.Category.StartsWith(query, StringComparison.CurrentCultureIgnoreCase)); 
+        }
+
+        // Event handler when user is typing a search query, show a list of suggestions
+        private void SearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        { 
+            //We only want to get results when it was a user typing
+            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput) 
+            { 
+                var matchingEvents = GetMatchingEvents(sender.Text);
+
+                RefreshEventList(sender.Text);
+                sender.ItemsSource = matchingEvents.ToList(); 
+            } 
+        }
+
+        private void SearchBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+            sender.Text = (args.SelectedItem as Event).ToString();
         }
     }
 }
