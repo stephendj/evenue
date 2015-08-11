@@ -110,6 +110,7 @@
                       IsChecked="{Binding IsPaneOpen, ElementName=RootSplitView, Mode=TwoWay}"
                       Unchecked="TogglePaneButton_Checked"
                       AutomationProperties.Name="Menu"
-                      ToolTipService.ToolTip="Menu" />
+                      ToolTipService.ToolTip="Menu" 
+                      />
     </Grid>
 </Page>

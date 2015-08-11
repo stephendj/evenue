@@ -40,7 +40,8 @@ namespace Evenue.BackEndAPI.Models
                     "ServiceTableColumn", (property, attributes) => attributes.Single().ColumnType.ToString()));
         }
 
-        public System.Data.Entity.DbSet<Evenue.BackEndAPI.DataObjects.Event> Events { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<Account> Accounts { get; set; }
     }
 
 }

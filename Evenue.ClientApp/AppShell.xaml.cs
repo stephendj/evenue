@@ -77,7 +77,6 @@ namespace Evenue.ClientApp
                 this.BackButton.Visibility = Visibility.Collapsed;
             }
 
-
             NavMenuList.ItemsSource = navlist;
         }
 
