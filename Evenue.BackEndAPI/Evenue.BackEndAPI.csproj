@@ -197,6 +197,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\TodoItemController.cs" />
+    <Compile Include="DataObjects\Account.cs" />
     <Compile Include="DataObjects\Event.cs" />
     <Compile Include="DataObjects\TodoItem.cs" />
     <Compile Include="Models\EvenueBackEndAPIContext.cs" />
