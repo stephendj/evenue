@@ -32,7 +32,7 @@
                                     HorizontalAlignment="Stretch"
                                     Margin="8 8 8 8"
                                     x:Name="SearchBox" 
-                                    PlaceholderText="Search title, location, category"
+                                    PlaceholderText="Search"
                                     QueryIcon="Find"
                                     TextChanged="SearchBox_TextChanged"
                                     SuggestionChosen="SearchBox_SuggestionChosen" 
@@ -51,10 +51,10 @@
                   IsItemClickEnabled="True">
             <GridView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Padding="10 10 10 10" MaxWidth="200">
+                    <StackPanel Padding="10 10 10 10" MaxWidth="240">
                         <Grid>
-                            <Image Source="../Assets/noimage.jpg" Width="175" Height="125" Stretch="Fill"></Image>
-                            <Image Source="{Binding ImageUri}" Width="175" Height="125" Stretch="Fill">
+                            <Image Source="../Assets/noimage.jpg" Width="220" Height="165" Stretch="Fill"></Image>
+                            <Image Source="{Binding ImageUri}" Width="220" Height="165" Stretch="Fill">
                                 <Interactivity:Interaction.Behaviors>
                                     <Core:IncrementalUpdateBehavior Phase="2"/>
                                 </Interactivity:Interaction.Behaviors>
@@ -69,17 +69,25 @@
                                 </Interactivity:Interaction.Behaviors>
                             </TextBlock>
                         </StackPanel>
+                        <RichTextBlock>
+                            <Paragraph>
+                                <Run FontSize="15">Date : </Run>
+                                <Run FontSize="15" Text="{Binding StartDate}">
+                                    <Interactivity:Interaction.Behaviors>
+                                        <Core:IncrementalUpdateBehavior Phase="1"/>
+                                    </Interactivity:Interaction.Behaviors>
+                                </Run>
+                                <Run FontSize="15"> - </Run>
+                                <Run FontSize="15" Text="{Binding EndDate}">
+                                    <Interactivity:Interaction.Behaviors>
+                                        <Core:IncrementalUpdateBehavior Phase="1"/>
+                                    </Interactivity:Interaction.Behaviors>
+                                </Run>
+                            </Paragraph>
+                        </RichTextBlock>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock FontSize="15">Date :</TextBlock>
-                            <TextBlock FontSize="15" Text="{Binding StartDate}">
-                                <Interactivity:Interaction.Behaviors>
-                                    <Core:IncrementalUpdateBehavior Phase="1"/>
-                                </Interactivity:Interaction.Behaviors>
-                            </TextBlock>
-                        </StackPanel>
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock FontSize="15">Description :</TextBlock>
-                            <TextBlock FontSize="15" TextWrapping="Wrap" Text="{Binding Desc}">
+                            <TextBlock FontSize="15">Category :</TextBlock>
+                            <TextBlock FontSize="15" TextWrapping="Wrap" Text="{Binding Category}">
                                 <Interactivity:Interaction.Behaviors>
                                     <Core:IncrementalUpdateBehavior Phase="1"/>
                                 </Interactivity:Interaction.Behaviors>

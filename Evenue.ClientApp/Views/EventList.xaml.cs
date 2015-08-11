@@ -100,5 +100,18 @@ namespace Evenue.ClientApp.Views
         {
             sender.Text = (args.SelectedItem as Event).ToString();
         }
+
+        // Remove the ability of the back button to go back to login page
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (Frame.CanGoBack)
+            {
+                PageStackEntry lastPage = Frame.BackStack[Frame.BackStackDepth - 1];
+                if (lastPage.SourcePageType == typeof(LoginPage))
+                {
+                    Frame.BackStack.Remove(lastPage);
+                }
+            }
+        }
     }
 }

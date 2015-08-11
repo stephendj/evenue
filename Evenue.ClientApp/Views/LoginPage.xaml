@@ -1,0 +1,44 @@
+﻿<Page
+    x:Class="Evenue.ClientApp.Views.LoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Evenue.ClientApp.Views"
+    xmlns:c="using:Evenue.ClientApp.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ImageBrush x:Key="BackgroundImage" ImageSource="../Assets/login_background.jpg"/>
+    </Page.Resources>
+
+    <Grid Background="{StaticResource BackgroundImage}">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Margin="0 0 0 0">
+            <Image Source="../Assets/logo.png" Stretch="None"/>
+            <Grid Margin="0 15 0 20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" FontSize="18" Text="Username :" Foreground="Black" VerticalAlignment="Center" Margin="10 5 0 5"></TextBlock>
+                <TextBox Grid.Row="0" Grid.Column="1" x:Name="username" FontSize="18" Margin="10 5 10 0"/>
+                <TextBlock Grid.Row="1" Grid.Column="1"  x:Name="username_error" FontSize="13" HorizontalAlignment="Left" Foreground="Red" Margin="10 0 0 5" Visibility="Collapsed">required field</TextBlock>
+                
+                <TextBlock Grid.Row="2" Grid.Column="0" FontSize="18" Text="Password :" Foreground="Black" VerticalAlignment="Center" Margin="10 5 0 5"></TextBlock>
+                <TextBox Grid.Row="2" Grid.Column="1" x:Name="password" FontSize="18" Margin="10 5 10 0"/>
+                <TextBlock Grid.Row="3" Grid.Column="1"  x:Name="password_error" FontSize="13" HorizontalAlignment="Left" Foreground="Red" Margin="10 0 0 5" Visibility="Collapsed">required field</TextBlock>
+            </Grid>
+            <Grid>
+                <ProgressRing x:Name="LoginProgressRing" Width="40" Height="40" IsActive="False"/>
+                <Button FontSize="18" x:Name="LoginButton" Click="LoginButton_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Foreground="Black" Background="Azure" BorderBrush="LightBlue" Content="Login"/>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Page>

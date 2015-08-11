@@ -31,24 +31,24 @@ namespace Evenue.ClientApp
         private List<NavMenuItem> navlist = new List<NavMenuItem>(
             new[]
             {
-            new NavMenuItem()
-            {
-                Symbol = Symbol.Favorite,
-                Label = "Event List",
-                DestPage = typeof(EventList)
-            },
-            new NavMenuItem()
-            {
-                Symbol = Symbol.Home,
-                Label = "My Events",
-                DestPage = typeof(MyEvents)
-            },
-            new NavMenuItem()
-            {
-                Symbol = Symbol.Edit,
-                Label = "Create Event",
-                DestPage = typeof(CreateEvent)
-            },
+                new NavMenuItem()
+                {
+                    Symbol = Symbol.Favorite,
+                    Label = "Event List",
+                    DestPage = typeof(EventList)
+                },
+                new NavMenuItem()
+                {
+                    Symbol = Symbol.Home,
+                    Label = "My Events",
+                    DestPage = typeof(MyEvents)
+                },
+                new NavMenuItem()
+                {
+                    Symbol = Symbol.Edit,
+                    Label = "Create Event",
+                    DestPage = typeof(CreateEvent)
+                }
             });
 
         public static AppShell Current = null;
@@ -76,6 +76,7 @@ namespace Evenue.ClientApp
             {
                 this.BackButton.Visibility = Visibility.Collapsed;
             }
+
 
             NavMenuList.ItemsSource = navlist;
         }
