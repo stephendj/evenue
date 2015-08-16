@@ -3,11 +3,11 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.OData;
-using Microsoft.WindowsAzure.Mobile.Service;
-using Evenue.BackEndAPI.DataObjects;
-using Evenue.BackEndAPI.Models;
+using Microsoft.Azure.Mobile.Server;
+using Evenue.MobileAppService.DataObjects;
+using Evenue.MobileAppService.Models;
 
-namespace Evenue.BackEndAPI.Controllers
+namespace Evenue.MobileAppService.Controllers
 {
     public class TodoItemController : TableController<TodoItem>
     {
@@ -15,7 +15,7 @@ namespace Evenue.BackEndAPI.Controllers
         {
             base.Initialize(controllerContext);
             EvenueBackEndAPIContext context = new EvenueBackEndAPIContext();
-            DomainManager = new EntityDomainManager<TodoItem>(context, Request, Services);
+            DomainManager = new EntityDomainManager<TodoItem>(context, Request);
         }
 
         // GET tables/TodoItem

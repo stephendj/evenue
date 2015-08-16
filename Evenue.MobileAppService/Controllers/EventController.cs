@@ -3,57 +3,52 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.OData;
-using Microsoft.WindowsAzure.Mobile.Service;
-using Evenue.BackEndAPI.DataObjects;
-using Evenue.BackEndAPI.Models;
-using Microsoft.WindowsAzure.Mobile.Service.Security;
+using Microsoft.Azure.Mobile.Server;
+using Evenue.MobileAppService.DataObjects;
+using Evenue.MobileAppService.Models;
 using System;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 
-namespace Evenue.BackEndAPI.Controllers
+namespace Evenue.MobileAppService.Controllers
 {
-    // Give anonymous access to the event controller class
-    [AuthorizeLevel(AuthorizationLevel.Anonymous)]
     public class EventController : TableController<Event>
     {
         protected override void Initialize(HttpControllerContext controllerContext)
         {
             base.Initialize(controllerContext);
             EvenueBackEndAPIContext context = new EvenueBackEndAPIContext();
-            DomainManager = new EntityDomainManager<Event>(context, Request, Services);
+            DomainManager = new EntityDomainManager<Event>(context, Request);
         }
 
+        [AllowAnonymous]
         // GET tables/Event
         public IQueryable<Event> GetAllEvent()
         {
             return Query(); 
         }
 
+        [AllowAnonymous]
         // GET tables/Event/48D68C86-6EA6-4C25-AA33-223FC9A27959
         public SingleResult<Event> GetEvent(string id)
         {
             return Lookup(id);
         }
 
+        [AllowAnonymous]
         // PATCH tables/Event/48D68C86-6EA6-4C25-AA33-223FC9A27959
         public Task<Event> PatchEvent(string id, Delta<Event> patch)
         {
              return UpdateAsync(id, patch);
         }
 
+        [AllowAnonymous]
         // POST tables/Event
         public async Task<IHttpActionResult> PostEvent(Event item)
         {
-            string storageAccountName;
-            string storageAccountKey;
-
-            // Try to get the Azure storage account token from app settings.  
-            if (!(Services.Settings.TryGetValue("STORAGE_ACCOUNT_NAME", out storageAccountName) |
-            Services.Settings.TryGetValue("STORAGE_ACCOUNT_ACCESS_KEY", out storageAccountKey)))
-            {
-                Services.Log.Error("Could not retrieve storage account settings.");
-            }
+            // Put the storage account name and key here. You can also take the value from the portal, or web.config file
+            string storageAccountName = "evenuestorage";
+            string storageAccountKey = "XVANOlxuWmagSH9uVtmHRlHfyoPj/L3wwd8bLu6HC2CGuDqa+QBnHo+GmgrZnQ/YJiN9+No8x2Pjs4LqDx0akw==";
 
             // Set the URI for the Blob Storage service.
             Uri blobEndpoint = new Uri(string.Format("https://{0}.blob.core.windows.net", storageAccountName));
@@ -98,6 +93,7 @@ namespace Evenue.BackEndAPI.Controllers
             return CreatedAtRoute("Tables", new { id = current.Id }, current);
         }
 
+        [AllowAnonymous]
         // DELETE tables/Event/48D68C86-6EA6-4C25-AA33-223FC9A27959
         public Task DeleteEvent(string id)
         {

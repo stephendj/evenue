@@ -1,11 +1,11 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
-using Microsoft.WindowsAzure.Mobile.Service;
-using Microsoft.WindowsAzure.Mobile.Service.Tables;
-using Evenue.BackEndAPI.DataObjects;
+using Microsoft.Azure.Mobile.Server;
+using Microsoft.Azure.Mobile.Server.Tables;
+using Evenue.MobileAppService.DataObjects;
 
-namespace Evenue.BackEndAPI.Models
+namespace Evenue.MobileAppService.Models
 {
     public class EvenueBackEndAPIContext : DbContext
     {
@@ -29,7 +29,7 @@ namespace Evenue.BackEndAPI.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            string schema = ServiceSettingsDictionary.GetSchemaName();
+            string schema = MobileAppSettingsDictionary.GetSchemaName();
             if (!string.IsNullOrEmpty(schema))
             {
                 modelBuilder.HasDefaultSchema(schema);

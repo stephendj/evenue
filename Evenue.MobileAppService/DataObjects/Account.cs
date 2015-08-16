@@ -1,10 +1,6 @@
-﻿using Microsoft.WindowsAzure.Mobile.Service;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Microsoft.Azure.Mobile.Server;
 
-namespace Evenue.BackEndAPI.DataObjects
+namespace Evenue.MobileAppService.DataObjects
 {
     public class Account : EntityData
     {

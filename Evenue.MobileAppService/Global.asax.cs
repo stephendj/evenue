@@ -1,7 +1,7 @@
 ﻿using System.Web.Http;
 using System.Web.Routing;
 
-namespace Evenue.BackEndAPI
+namespace Evenue.MobileAppService
 {
     public class WebApiApplication : System.Web.HttpApplication
     {

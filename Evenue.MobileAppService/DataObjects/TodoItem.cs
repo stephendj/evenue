@@ -1,6 +1,6 @@
-﻿using Microsoft.WindowsAzure.Mobile.Service;
+﻿using Microsoft.Azure.Mobile.Server;
 
-namespace Evenue.BackEndAPI.DataObjects
+namespace Evenue.MobileAppService.DataObjects
 {
     public class TodoItem : EntityData
     {

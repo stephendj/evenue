@@ -1,7 +1,6 @@
-﻿using Microsoft.WindowsAzure.Mobile.Service;
-using System;
+﻿using Microsoft.Azure.Mobile.Server;
 
-namespace Evenue.BackEndAPI.DataObjects
+namespace Evenue.MobileAppService.DataObjects
 {
     public class Event : EntityData
     {
@@ -12,7 +11,7 @@ namespace Evenue.BackEndAPI.DataObjects
         public string desc { get; set; }
         public string category { get; set; }
         public int fee { get; set; }
-        
+
         // For storing images data
         public string containerName { get; set; }
         public string resourceName { get; set; }
