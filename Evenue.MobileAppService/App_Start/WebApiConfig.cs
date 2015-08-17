@@ -27,16 +27,16 @@ namespace Evenue.MobileAppService
     {
         protected override void Seed(EvenueBackEndAPIContext context)
         {
-            List<TodoItem> todoItems = new List<TodoItem>
+            List<Event> events = new List<Event>
             {
-                new TodoItem { Id = Guid.NewGuid().ToString(), Text = "First item", Complete = false },
-                new TodoItem { Id = Guid.NewGuid().ToString(), Text = "Second item", Complete = false },
+                new Event { Id = "1", Category="aa", Desc="vv", fee=99, Location="dd", Title="aa", EndDate="dddd", StartDate="ff" },
+                new Event { Id = "1", Category="aa", Desc="vv", fee=99, Location="dd", Title="aa", EndDate="dddd", StartDate="ff" },
             };
 
-            foreach (TodoItem todoItem in todoItems)
+            List<User> users = new List<User>
             {
-                context.Set<TodoItem>().Add(todoItem);
-            }
+                new User { Id = "1", Events = events }
+            };
 
             base.Seed(context);
         }

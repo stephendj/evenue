@@ -25,8 +25,6 @@ namespace Evenue.MobileAppService.Models
         {
         } 
 
-        public DbSet<TodoItem> TodoItems { get; set; }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             string schema = MobileAppSettingsDictionary.GetSchemaName();
@@ -41,7 +39,6 @@ namespace Evenue.MobileAppService.Models
         }
 
         public DbSet<Event> Events { get; set; }
-        public DbSet<Account> Accounts { get; set; }
+        public DbSet<User> Users { get; set; }
     }
-
 }

@@ -255,11 +255,13 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\EventController.cs" />
+    <Compile Include="Controllers\QueryableExpandAttribute.cs" />
     <Compile Include="Controllers\TodoItemController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="DataObjects\Account.cs" />
     <Compile Include="DataObjects\Event.cs" />
     <Compile Include="DataObjects\TodoItem.cs" />
+    <Compile Include="DataObjects\User.cs" />
     <Compile Include="Models\EvenueBackEndAPIContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -284,8 +286,6 @@
   <ItemGroup>
     <Content Include="Metadata\deploymentTemplates\apiappconfig.azureresource.json" />
     <Content Include="apiapp.json" />
-    <None Include="Properties\PublishProfiles\EvenueBackEndAPI%28evenuebackendapi%29 %282%29.pubxml" />
-    <None Include="Properties\PublishProfiles\EvenueBackEndAPI%28evenuebackendapi%29.pubxml" />
     <None Include="Properties\PublishProfiles\EvenueBackEndAPI-code.pubxml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

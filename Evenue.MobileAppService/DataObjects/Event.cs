@@ -4,18 +4,20 @@ namespace Evenue.MobileAppService.DataObjects
 {
     public class Event : EntityData
     {
-        public string title { get; set; }
-        public string location { get; set; }
-        public string startDate { get; set; }
-        public string endDate { get; set; }
-        public string desc { get; set; }
-        public string category { get; set; }
+        public User User { get; set; }
+        public string UserId { get; set; }
+        public string Title { get; set; }
+        public string Location { get; set; }
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
+        public string Desc { get; set; }
+        public string Category { get; set; }
         public int fee { get; set; }
 
         // For storing images data
-        public string containerName { get; set; }
-        public string resourceName { get; set; }
-        public string sasQueryString { get; set; }
-        public string imageUri { get; set; }
+        public string ContainerName { get; set; }
+        public string ResourceName { get; set; }
+        public string SasQueryString { get; set; }
+        public string ImageUri { get; set; }
     }
 }

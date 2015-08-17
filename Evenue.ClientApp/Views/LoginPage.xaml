@@ -12,43 +12,16 @@
         <Grid.Background>
             <ImageBrush Stretch="UniformToFill" ImageSource="../Assets/login_background.jpg"/>
         </Grid.Background>
-        <Rectangle x:Name="Container" Fill="White" Opacity="0.9" RadiusX="20" RadiusY="20" VerticalAlignment="Center" HorizontalAlignment="Center" Width="315" Height="320"/>
+        <Rectangle x:Name="Container" Fill="White" Opacity="0.9" RadiusX="20" RadiusY="20" VerticalAlignment="Center" HorizontalAlignment="Center" Width="315" Height="290"/>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Margin="0 0 0 0">
             <Image Source="../Assets/logo.png" Stretch="None"/>
-            <Grid Margin="0 15 0 20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Grid.Column="0" FontSize="18" Text="Username :" Foreground="Black" VerticalAlignment="Center" Margin="10 5 0 5"></TextBlock>
-                <TextBox Grid.Row="0" Grid.Column="1" x:Name="username" FontSize="18" Margin="10 5 10 0"/>
-                <TextBlock Grid.Row="1" Grid.Column="1"  x:Name="username_error" FontSize="13" HorizontalAlignment="Left" Foreground="Red" Margin="10 0 0 5" Visibility="Collapsed">required field</TextBlock>
-                
-                <TextBlock Grid.Row="2" Grid.Column="0" FontSize="18" Text="Password :" Foreground="Black" VerticalAlignment="Center" Margin="10 5 0 5"></TextBlock>
-                <PasswordBox Grid.Row="2" Grid.Column="1" x:Name="password" FontSize="18" Margin="10 5 10 0"/>
-                <TextBlock Grid.Row="3" Grid.Column="1"  x:Name="password_error" FontSize="13" HorizontalAlignment="Left" Foreground="Red" Margin="10 0 0 5" Visibility="Collapsed">required field</TextBlock>
-
-                <TextBlock Visibility="Collapsed" Grid.Row="4" Grid.Column="0" FontSize="18" x:Name="password_confirm_text" Text="Confirm :" Foreground="Black" VerticalAlignment="Center" Margin="10 5 0 5"></TextBlock>
-                <PasswordBox Visibility="Collapsed" Grid.Row="4" Grid.Column="1" x:Name="password_confirm" FontSize="18" Margin="10 5 10 0"/>
-                <TextBlock Visibility="Collapsed" Grid.Row="5" Grid.Column="1"  x:Name="password_confirm_error" FontSize="13" HorizontalAlignment="Left" Foreground="Red" Margin="10 0 0 5" >required field</TextBlock>
-            </Grid>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <ProgressRing x:Name="ProgressRing" Grid.Row="0" Width="40" Height="40" IsActive="False"/>
-                <Button FontSize="18" x:Name="Button" Grid.Row="0" Click="Button_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Foreground="Black" Background="Azure" BorderBrush="LightBlue" Content="Login"/>
-                <HyperlinkButton x:Name="NavigationLink" Click="ChangeMode" Grid.Row="1" FontSize="13" HorizontalAlignment="Center">Don't have an account? Register here</HyperlinkButton>
-            </Grid>
+            <Button Background="Transparent" Click="Button_Click" x:Name="MicrosoftAccount" Margin="10 10 10 5" Padding="0 0 0 0">
+                <Image Source="../Assets/ms_login.png" />
+            </Button>
+            <Button Background="Transparent" Click="Button_Click" x:Name="Facebook" Margin="10 5 10 10" Padding="0 0 0 0">
+                <Image Source="../Assets/fb_login.png" />
+            </Button>
+            <ProgressRing x:Name="LoginProgress" Width="60" Height="60" IsActive="True" Visibility="Collapsed" Margin="0 0 0 0"/>
         </StackPanel>
     </Grid>
 </Page>

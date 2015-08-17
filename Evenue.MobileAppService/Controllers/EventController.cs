@@ -12,6 +12,7 @@ using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace Evenue.MobileAppService.Controllers
 {
+    [Authorize]
     public class EventController : TableController<Event>
     {
         protected override void Initialize(HttpControllerContext controllerContext)
@@ -21,28 +22,24 @@ namespace Evenue.MobileAppService.Controllers
             DomainManager = new EntityDomainManager<Event>(context, Request);
         }
 
-        [AllowAnonymous]
         // GET tables/Event
         public IQueryable<Event> GetAllEvent()
         {
             return Query(); 
         }
 
-        [AllowAnonymous]
         // GET tables/Event/48D68C86-6EA6-4C25-AA33-223FC9A27959
         public SingleResult<Event> GetEvent(string id)
         {
             return Lookup(id);
         }
 
-        [AllowAnonymous]
         // PATCH tables/Event/48D68C86-6EA6-4C25-AA33-223FC9A27959
         public Task<Event> PatchEvent(string id, Delta<Event> patch)
         {
              return UpdateAsync(id, patch);
         }
 
-        [AllowAnonymous]
         // POST tables/Event
         public async Task<IHttpActionResult> PostEvent(Event item)
         {
@@ -57,13 +54,13 @@ namespace Evenue.MobileAppService.Controllers
             CloudBlobClient blobClient = new CloudBlobClient(blobEndpoint,
                 new StorageCredentials(storageAccountName, storageAccountKey));
 
-            if (item.containerName != null)
+            if (item.ContainerName != null)
             {
                 // Set the BLOB store container name on the item, which must be lowercase.
-                item.containerName = item.containerName.ToLower();
+                item.ContainerName = item.ContainerName.ToLower();
 
                 // Create a container, if it doesn't already exist.
-                CloudBlobContainer container = blobClient.GetContainerReference(item.containerName);
+                CloudBlobContainer container = blobClient.GetContainerReference(item.ContainerName);
                 await container.CreateIfNotExistsAsync();
 
                 // Create a shared access permission policy. 
@@ -82,18 +79,17 @@ namespace Evenue.MobileAppService.Controllers
                 };
 
                 // Get the SAS as a string.
-                item.sasQueryString = container.GetSharedAccessSignature(sasPolicy);
+                item.SasQueryString = container.GetSharedAccessSignature(sasPolicy);
 
                 // Set the URL used to store the image.
-                item.imageUri = string.Format("{0}{1}/{2}", blobEndpoint.ToString(),
-                    item.containerName, item.resourceName);
+                item.ImageUri = string.Format("{0}{1}/{2}", blobEndpoint.ToString(),
+                    item.ContainerName, item.ResourceName);
             }
 
             Event current = await InsertAsync(item);
             return CreatedAtRoute("Tables", new { id = current.Id }, current);
         }
 
-        [AllowAnonymous]
         // DELETE tables/Event/48D68C86-6EA6-4C25-AA33-223FC9A27959
         public Task DeleteEvent(string id)
         {

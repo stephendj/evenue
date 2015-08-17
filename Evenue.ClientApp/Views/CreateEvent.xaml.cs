@@ -168,6 +168,7 @@ namespace Evenue.ClientApp.Views
 
                 Event _event = new Event()
                 {
+                    UserId = App.MobileService.CurrentUser.UserId,
                     Id = Guid.NewGuid().ToString(),
                     Title = titleTextBox.Text,
                     Location = locationTextBox.Text,
