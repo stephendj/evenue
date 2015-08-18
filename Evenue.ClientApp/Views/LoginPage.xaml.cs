@@ -7,8 +7,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Evenue.ClientApp.Models;
 using System.Diagnostics;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -104,6 +102,16 @@ namespace Evenue.ClientApp.Views
 
             if (user != null)
             {
+                try
+                {
+                    User newuser = new User() { Id = user.UserId };
+                    await userTable.InsertAsync(newuser);
+                }
+                catch (Exception)
+                {
+                    // User already exist, do nothing
+                }
+
                 AppShell shell = Window.Current.Content as AppShell;
 
                 // Do not repeat app initialization when the Window already has content,

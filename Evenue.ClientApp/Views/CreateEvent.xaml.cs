@@ -11,6 +11,7 @@ using Windows.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -190,7 +191,16 @@ namespace Evenue.ClientApp.Views
                     _event.ResourceName = Guid.NewGuid().ToString();
                 }
 
-                await eventTable.InsertAsync(_event);
+                try
+                {
+                    await eventTable.InsertAsync(_event);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.StackTrace);
+                    MessageDialog msg = new MessageDialog("Problem occured, please retry again");
+                    await msg.ShowAsync();
+                }
 
                 // If we have a returned SAS, then upload the blob
                 if (!string.IsNullOrEmpty(_event.SasQueryString))
@@ -213,20 +223,23 @@ namespace Evenue.ClientApp.Views
                             container.GetBlockBlobReference(_event.ResourceName);
                         await blobFromSASCredential.UploadFromStreamAsync(inputStream);
                     }
-
-                    // Dismiss the save button, show progress ring
-                    SaveButton.Visibility = Visibility.Visible;
-                    progressRing.Visibility = Visibility.Collapsed;
-
+                    
                     MessageDialog msg = new MessageDialog("The Event is successfully created");
                     ResetFields();
                     await msg.ShowAsync();
                 }
                 else
                 {
+                    // Failed to upload image, delete the previously created event
+                    await eventTable.DeleteAsync(_event);
+
                     MessageDialog msg = new MessageDialog("Problem occured, please retry again");
                     await msg.ShowAsync();
                 }
+                
+                // Dismiss the progress ring, bring back the save button
+                SaveButton.Visibility = Visibility.Visible;
+                progressRing.Visibility = Visibility.Collapsed;
             }
         }
     }

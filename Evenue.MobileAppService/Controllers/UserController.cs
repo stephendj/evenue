@@ -9,7 +9,7 @@ using Evenue.MobileAppService.Models;
 
 namespace Evenue.MobileAppService.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     public class UserController : TableController<User>
     {
         protected override void Initialize(HttpControllerContext controllerContext)
@@ -26,6 +26,7 @@ namespace Evenue.MobileAppService.Controllers
             return Query();
         }
 
+        [QueryableExpand("Events")]
         // GET tables/User/48D68C86-6EA6-4C25-AA33-223FC9A27959
         public SingleResult<User> GetUser(string id)
         {
