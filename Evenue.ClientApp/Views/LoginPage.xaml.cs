@@ -7,6 +7,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Evenue.ClientApp.Models;
 using System.Diagnostics;
+using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -17,7 +18,8 @@ namespace Evenue.ClientApp.Views
     /// </summary>
     public sealed partial class LoginPage : Page
     {
-        private MobileServiceUser user = null;
+        public static string provider;
+        public static MobileServiceUser user = null;
         private IMobileServiceTable<User> userTable = App.MobileService.GetTable<User>();
 
         public LoginPage()
@@ -25,66 +27,63 @@ namespace Evenue.ClientApp.Views
             this.InitializeComponent();
         }
 
-        private async Task AuthenticateAsync(string provider)
+        // Log the user in with specified provider (Microsoft Account or Facebook)
+        private async Task AuthenticateAsync()
         {
             // Use the PasswordVault to securely store and access credentials.
             PasswordVault vault = new PasswordVault();
             PasswordCredential credential = null;
 
-            while (credential == null)
+            try
+            {
+                // Try to get an existing credential from the vault.
+                credential = vault.FindAllByResource(provider).FirstOrDefault();
+            }
+            catch (Exception)
+            {
+                // do nothing
+            }
+
+            if (credential != null)
+            {
+                // Create a user from the stored credentials.
+                user = new MobileServiceUser(credential.UserName);
+                credential.RetrievePassword();
+                user.MobileServiceAuthenticationToken = credential.Password;
+
+                // Set the user from the stored credentials.
+                App.MobileService.CurrentUser = user;
+
+                try
+                {
+                    // Try to return an item now to determine if the cached credential has expired.
+                    await App.MobileService.GetTable<Event>().Take(1).ToListAsync();
+                }
+                catch (MobileServiceInvalidOperationException ex)
+                {
+                    if (ex.Response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                    {
+                        // Remove the credential with the expired token.
+                        vault.Remove(credential);
+                        credential = null;
+                    }
+                }
+            }
+            else
             {
                 try
                 {
-                    // Try to get an existing credential from the vault.
-                    credential = vault.FindAllByResource(provider).FirstOrDefault();
+                    // Login with the identity provider.
+                    user = await App.MobileService.LoginAsync(provider);
+
+                    // Create and store the user credentials.
+                    credential = new PasswordCredential(provider,
+                        user.UserId, user.MobileServiceAuthenticationToken);
+                    vault.Add(credential);
                 }
-                catch (Exception)
+                catch (MobileServiceInvalidOperationException ex)
                 {
-                    // do nothing
-                }
-
-                if (credential != null)
-                {
-                    // Create a user from the stored credentials.
-                    user = new MobileServiceUser(credential.UserName);
-                    credential.RetrievePassword();
-                    user.MobileServiceAuthenticationToken = credential.Password;
-
-                    // Set the user from the stored credentials.
-                    App.MobileService.CurrentUser = user;
-
-                    try
-                    {
-                        // Try to return an item now to determine if the cached credential has expired.
-                        await App.MobileService.GetTable<Event>().Take(1).ToListAsync();
-                    }
-                    catch (MobileServiceInvalidOperationException ex)
-                    {
-                        if (ex.Response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-                        {
-                            // Remove the credential with the expired token.
-                            vault.Remove(credential);
-                            credential = null;
-                            continue;
-                        }
-                    }
-                }
-                else
-                {
-                    try
-                    {
-                        // Login with the identity provider.
-                        user = await App.MobileService.LoginAsync(provider);
-
-                        // Create and store the user credentials.
-                        credential = new PasswordCredential(provider,
-                            user.UserId, user.MobileServiceAuthenticationToken);
-                        vault.Add(credential);
-                    }
-                    catch (MobileServiceInvalidOperationException ex)
-                    {
-                        Debug.WriteLine(ex.StackTrace);
-                    }
+                    Debug.WriteLine(ex.StackTrace);
                 }
             }
         }
@@ -92,13 +91,22 @@ namespace Evenue.ClientApp.Views
         // Event handler for login button, try to login when clicked
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
+            provider = (sender as Button).Name;
+
             // Hide the buttons and show a progress ring
             LoginProgress.Visibility = Visibility.Visible;
             MicrosoftAccount.Visibility = Visibility.Collapsed;
             Facebook.Visibility = Visibility.Collapsed;
 
-            // Login the user and then load data from the mobile app.
-            await AuthenticateAsync((sender as Button).Name);
+            // Try to log the user in
+            try
+            {
+                await AuthenticateAsync();
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex.StackTrace);
+            }
 
             if (user != null)
             {
@@ -143,6 +151,11 @@ namespace Evenue.ClientApp.Views
                 MicrosoftAccount.Visibility = Visibility.Visible;
                 Facebook.Visibility = Visibility.Visible;
             }
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            user = null;
         }
     }
 }

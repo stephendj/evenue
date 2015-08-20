@@ -6,6 +6,8 @@
     xmlns:ctl="using:Evenue.ClientApp.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" 
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     mc:Ignorable="d">
 
     <Grid Background="{StaticResource AppBarBackgroundThemeBrush}">
@@ -14,9 +16,28 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <ctl:PageHeader Grid.Row="0">
+        <!--Progress Ring while loading items, and error text-->
+        <ProgressRing x:Name="ProgressRing" Width="100" Height="100" Visibility="Visible" Grid.Row="1" IsActive="True"></ProgressRing>
+        <TextBlock x:Name="ErrorText" Grid.Row="1" Visibility="Collapsed" Text="Connectivity error, please try again" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+
+        <ctl:PageHeader>
             <ctl:PageHeader.HeaderContent>
-                <TextBlock Text="MY EVENTS" Style="{ThemeResource PageTitleTextBlockStyle}" TextWrapping="NoWrap"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" x:Name="title" Style="{ThemeResource PageTitleTextBlockStyle}" Text="MY EVENTS" HorizontalAlignment="Left"/>
+                    <AutoSuggestBox Grid.Column="1"
+                                    HorizontalAlignment="Stretch"
+                                    Margin="8 8 8 8"
+                                    x:Name="SearchBox" 
+                                    PlaceholderText="Search"
+                                    QueryIcon="Find"
+                                    TextChanged="SearchBox_TextChanged"
+                                    SuggestionChosen="SearchBox_SuggestionChosen" 
+                                    Visibility="Collapsed" />
+                </Grid>
             </ctl:PageHeader.HeaderContent>
         </ctl:PageHeader>
 
@@ -24,119 +45,57 @@
                   CanReorderItems="True"
                   CanDragItems="True"
                   Grid.Row="1"
-                  Name="gridView">
-            <StackPanel Padding="10 10 10 10" MaxWidth="150">
-                <Rectangle Width="150" Height="100" Fill="Blue"></Rectangle>
-                <TextBlock HorizontalAlignment="Center" FontSize="18" Text="{Binding title}"></TextBlock>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Location :</TextBlock>
-                    <TextBlock FontSize="15" Text="Jakarta"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Date :</TextBlock>
-                    <TextBlock FontSize="15" Text="12/02/2015"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock FontSize="15">Description :</TextBlock>
-                    <TextBlock FontSize="15" TextWrapping="Wrap" Text="Lorem Ipsum Dolor sit amet..."></TextBlock>
-                </StackPanel>
-            </StackPanel>
-            <StackPanel Padding="10 10 10 10" MaxWidth="150">
-                <Rectangle Width="150" Height="100" Fill="Pink"></Rectangle>
-                <TextBlock HorizontalAlignment="Center" FontSize="18" Text="{Binding title}"></TextBlock>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Location :</TextBlock>
-                    <TextBlock FontSize="15" Text="Jakarta"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Date :</TextBlock>
-                    <TextBlock FontSize="15" Text="12/02/2015"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock FontSize="15">Description :</TextBlock>
-                    <TextBlock FontSize="15" TextWrapping="Wrap" Text="Lorem Ipsum Dolor sit amet..."></TextBlock>
-                </StackPanel>
-            </StackPanel>
-            <StackPanel Padding="10 10 10 10" MaxWidth="150">
-                <Rectangle Width="150" Height="100" Fill="Purple"></Rectangle>
-                <TextBlock HorizontalAlignment="Center" FontSize="18" Text="{Binding title}"></TextBlock>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Location :</TextBlock>
-                    <TextBlock FontSize="15" Text="Jakarta"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Date :</TextBlock>
-                    <TextBlock FontSize="15" Text="12/02/2015"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock FontSize="15">Description :</TextBlock>
-                    <TextBlock FontSize="15" TextWrapping="Wrap" Text="Lorem Ipsum Dolor sit amet..."></TextBlock>
-                </StackPanel>
-            </StackPanel>
-            <StackPanel Padding="10 10 10 10" MaxWidth="150">
-                <Rectangle Width="150" Height="100" Fill="Brown"></Rectangle>
-                <TextBlock HorizontalAlignment="Center" FontSize="18" Text="{Binding title}"></TextBlock>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Location :</TextBlock>
-                    <TextBlock FontSize="15" Text="Jakarta"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Date :</TextBlock>
-                    <TextBlock FontSize="15" Text="12/02/2015"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock FontSize="15">Description :</TextBlock>
-                    <TextBlock FontSize="15" TextWrapping="Wrap" Text="Lorem Ipsum Dolor sit amet..."></TextBlock>
-                </StackPanel>
-            </StackPanel>
-            <StackPanel Padding="10 10 10 10" MaxWidth="150">
-                <Rectangle Width="150" Height="100" Fill="Green"></Rectangle>
-                <TextBlock HorizontalAlignment="Center" FontSize="18" Text="{Binding title}"></TextBlock>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Location :</TextBlock>
-                    <TextBlock FontSize="15" Text="Jakarta"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Date :</TextBlock>
-                    <TextBlock FontSize="15" Text="12/02/2015"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock FontSize="15">Description :</TextBlock>
-                    <TextBlock FontSize="15" TextWrapping="Wrap" Text="Lorem Ipsum Dolor sit amet..."></TextBlock>
-                </StackPanel>
-            </StackPanel>
-            <StackPanel Padding="10 10 10 10" MaxWidth="150">
-                <Rectangle Width="150" Height="100" Fill="Yellow"></Rectangle>
-                <TextBlock HorizontalAlignment="Center" FontSize="18" Text="{Binding title}"></TextBlock>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Location :</TextBlock>
-                    <TextBlock FontSize="15" Text="Jakarta"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Date :</TextBlock>
-                    <TextBlock FontSize="15" Text="12/02/2015"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock FontSize="15">Description :</TextBlock>
-                    <TextBlock FontSize="15" TextWrapping="Wrap" Text="Lorem Ipsum Dolor sit amet..."></TextBlock>
-                </StackPanel>
-            </StackPanel>
-            <StackPanel Padding="10 10 10 10" MaxWidth="150">
-                <Rectangle Width="150" Height="100" Fill="Red"></Rectangle>
-                <TextBlock HorizontalAlignment="Center" FontSize="18" Text="{Binding title}"></TextBlock>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Location :</TextBlock>
-                    <TextBlock FontSize="15" Text="Jakarta"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontSize="15">Date :</TextBlock>
-                    <TextBlock FontSize="15" Text="12/02/2015"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock FontSize="15">Description :</TextBlock>
-                    <TextBlock FontSize="15" TextWrapping="Wrap" Text="Lorem Ipsum Dolor sit amet..."></TextBlock>
-                </StackPanel>
-            </StackPanel>
+                  Name="eventListGridView"
+                  Foreground="Black"
+                  ItemClick="eventListGridView_ItemClick"
+                  IsItemClickEnabled="True">
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Padding="10 10 10 10" MaxWidth="240">
+                        <Grid>
+                            <Image Source="../Assets/noimage.jpg" Width="220" Height="165" Stretch="Fill"></Image>
+                            <Image Source="{Binding ImageUri}" Width="220" Height="165" Stretch="Fill">
+                                <Interactivity:Interaction.Behaviors>
+                                    <Core:IncrementalUpdateBehavior Phase="2"/>
+                                </Interactivity:Interaction.Behaviors>
+                            </Image>
+                        </Grid>
+                        <TextBlock HorizontalAlignment="Center" FontSize="18" Text="{Binding Title}"></TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="15">Location :</TextBlock>
+                            <TextBlock FontSize="15" Text="{Binding Location}">
+                                <Interactivity:Interaction.Behaviors>
+                                    <Core:IncrementalUpdateBehavior Phase="1"/>
+                                </Interactivity:Interaction.Behaviors>
+                            </TextBlock>
+                        </StackPanel>
+                        <RichTextBlock>
+                            <Paragraph>
+                                <Run FontSize="15">Date :</Run>
+                                <Run FontSize="15" Text="{Binding StartDate}">
+                                    <Interactivity:Interaction.Behaviors>
+                                        <Core:IncrementalUpdateBehavior Phase="1"/>
+                                    </Interactivity:Interaction.Behaviors>
+                                </Run>
+                                <Run FontSize="15">-</Run>
+                                <Run FontSize="15" Text="{Binding EndDate}">
+                                    <Interactivity:Interaction.Behaviors>
+                                        <Core:IncrementalUpdateBehavior Phase="1"/>
+                                    </Interactivity:Interaction.Behaviors>
+                                </Run>
+                            </Paragraph>
+                        </RichTextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="15">Category :</TextBlock>
+                            <TextBlock FontSize="15" TextWrapping="Wrap" Text="{Binding Category}">
+                                <Interactivity:Interaction.Behaviors>
+                                    <Core:IncrementalUpdateBehavior Phase="1"/>
+                                </Interactivity:Interaction.Behaviors>
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </GridView.ItemTemplate>
         </GridView>
     </Grid>
 </Page>

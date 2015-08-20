@@ -1,20 +1,13 @@
 ﻿using Microsoft.WindowsAzure.MobileServices;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Evenue.ClientApp.Models;
 using System.Diagnostics;
+using Evenue.ClientApp.Controls;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -59,7 +52,7 @@ namespace Evenue.ClientApp.Views
             }
             else
             {
-                var MatchEvents = GetMatchingEvents(query).ToList<Event>();
+                var MatchEvents = EventController.GetMatchingEvents(events, query).ToList<Event>();
                 if(MatchEvents.Count > 0)
                 {
                     ErrorText.Visibility = Visibility.Collapsed;
@@ -83,25 +76,13 @@ namespace Evenue.ClientApp.Views
                  new Windows.UI.Xaml.Media.Animation.DrillInNavigationTransitionInfo());
         }
 
-        // returns an ordered list of location that matches the search query
-        public IEnumerable<Event> GetMatchingEvents(string query)
-        { 
-            return events 
-                .Where(c => c.Title.IndexOf(query, StringComparison.CurrentCultureIgnoreCase) > -1 || 
-                            c.Location.IndexOf(query, StringComparison.CurrentCultureIgnoreCase) > -1 || 
-                            c.Category.IndexOf(query, StringComparison.CurrentCultureIgnoreCase) > -1) 
-                .OrderByDescending(c => c.Title.StartsWith(query, StringComparison.CurrentCultureIgnoreCase)) 
-                .ThenByDescending(c => c.Location.StartsWith(query, StringComparison.CurrentCultureIgnoreCase)) 
-                .ThenByDescending(c => c.Category.StartsWith(query, StringComparison.CurrentCultureIgnoreCase)); 
-        }
-
         // Event handler when user is typing a search query, show a list of suggestions
         private void SearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         { 
             //We only want to get results when it was a user typing
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput) 
             { 
-                var matchingEvents = GetMatchingEvents(sender.Text);
+                var matchingEvents = EventController.GetMatchingEvents(events, sender.Text);
 
                 RefreshEventList(sender.Text);
                 sender.ItemsSource = matchingEvents.ToList(); 

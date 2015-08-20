@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Evenue.ClientApp.Controls;
 using Evenue.ClientApp.Views;
+using Windows.Security.Credentials;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -51,9 +52,9 @@ namespace Evenue.ClientApp
                 },
                 new NavMenuItem()
                 {
-                    Symbol = Symbol.SetLockScreen,
+                    Symbol = Symbol.Cancel,
                     Label = "Log Out",
-                    DestPage = typeof(LoginPage)
+                    DestPage = null
                 }
             });
 
@@ -187,6 +188,26 @@ namespace Evenue.ClientApp
                     item.DestPage != this.AppFrame.CurrentSourcePageType)
                 {
                     this.AppFrame.Navigate(item.DestPage, item.Arguments);
+                }
+                else if(item.Label == "Log Out")
+                {
+                    PasswordVault vault = new PasswordVault();
+                    PasswordCredential credential = null;
+
+                    // Try to get an existing credential from the vault and remove it
+                    credential = vault.FindAllByResource(LoginPage.provider).FirstOrDefault();
+                    vault.Remove(credential);
+
+                    // Log the user out
+                    App.MobileService.Logout();
+
+                    // Move back to the login page, reinitiallize the frame
+                    var rootFrame = new Frame();
+                    rootFrame.Navigate(typeof(LoginPage));
+                    Window.Current.Content = rootFrame;
+                    LoginPage p = rootFrame.Content as LoginPage;
+
+                    Window.Current.Activate();
                 }
             }
         }
