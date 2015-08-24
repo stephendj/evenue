@@ -1,12 +1,18 @@
-﻿using Microsoft.WindowsAzure.MobileServices;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using Windows.Security.Credentials;
-using System.Threading.Tasks;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Evenue.ClientApp.Models;
-using System.Diagnostics;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
+using System.Security.Claims;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -17,132 +23,184 @@ namespace Evenue.ClientApp.Views
     /// </summary>
     public sealed partial class LoginPage : Page
     {
-        private MobileServiceUser user = null;
-        private IMobileServiceTable<User> userTable = App.MobileService.GetTable<User>();
+        private string mode = "login";
 
         public LoginPage()
         {
             this.InitializeComponent();
         }
 
-        private async Task AuthenticateAsync(string provider)
+        // Check if both username and password fields are not empty for login
+        private bool ValidateLoginField(string username, string password)
         {
-            // Use the PasswordVault to securely store and access credentials.
-            PasswordVault vault = new PasswordVault();
-            PasswordCredential credential = null;
+            bool valid = true;
 
-            while (credential == null)
+            if (username == "")
             {
-                try
-                {
-                    // Try to get an existing credential from the vault.
-                    credential = vault.FindAllByResource(provider).FirstOrDefault();
-                }
-                catch (Exception)
-                {
-                    // do nothing
-                }
-
-                if (credential != null)
-                {
-                    // Create a user from the stored credentials.
-                    user = new MobileServiceUser(credential.UserName);
-                    credential.RetrievePassword();
-                    user.MobileServiceAuthenticationToken = credential.Password;
-
-                    // Set the user from the stored credentials.
-                    App.MobileService.CurrentUser = user;
-
-                    try
-                    {
-                        // Try to return an item now to determine if the cached credential has expired.
-                        await App.MobileService.GetTable<Event>().Take(1).ToListAsync();
-                    }
-                    catch (MobileServiceInvalidOperationException ex)
-                    {
-                        if (ex.Response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-                        {
-                            // Remove the credential with the expired token.
-                            vault.Remove(credential);
-                            credential = null;
-                            continue;
-                        }
-                    }
-                }
-                else
-                {
-                    try
-                    {
-                        // Login with the identity provider.
-                        user = await App.MobileService.LoginAsync(provider);
-
-                        // Create and store the user credentials.
-                        credential = new PasswordCredential(provider,
-                            user.UserId, user.MobileServiceAuthenticationToken);
-                        vault.Add(credential);
-                    }
-                    catch (MobileServiceInvalidOperationException ex)
-                    {
-                        Debug.WriteLine(ex.StackTrace);
-                    }
-                }
-            }
-        }
-        
-        // Event handler for login button, try to login when clicked
-        private async void Button_Click(object sender, RoutedEventArgs e)
-        {
-            // Hide the buttons and show a progress ring
-            LoginProgress.Visibility = Visibility.Visible;
-            MicrosoftAccount.Visibility = Visibility.Collapsed;
-            Facebook.Visibility = Visibility.Collapsed;
-
-            // Login the user and then load data from the mobile app.
-            await AuthenticateAsync((sender as Button).Name);
-
-            if (user != null)
-            {
-                try
-                {
-                    User newuser = new User() { Id = user.UserId };
-                    await userTable.InsertAsync(newuser);
-                }
-                catch (Exception)
-                {
-                    // User already exist, do nothing
-                }
-
-                AppShell shell = Window.Current.Content as AppShell;
-
-                // Do not repeat app initialization when the Window already has content,
-                // just ensure that the window is active
-                if (shell == null)
-                {
-                    // Create a AppShell to act as the navigation context and navigate to the first page
-                    shell = new AppShell();
-
-                    // Set the default language
-                    shell.Language = Windows.Globalization.ApplicationLanguages.Languages[0];
-                }
-
-                // Place our app shell in the current Window
-                Window.Current.Content = shell;
-
-                if (shell.AppFrame.Content == null)
-                {
-                    // When the navigation stack isn't restored, navigate to the first page
-                    // suppressing the initial entrance animation.
-                    shell.AppFrame.Navigate(typeof(EventList), null, new Windows.UI.Xaml.Media.Animation.SuppressNavigationTransitionInfo());
-                }
-
-                Window.Current.Activate();
+                username_error.Visibility = Visibility.Visible;
+                valid = false;
             }
             else
             {
-                LoginProgress.Visibility = Visibility.Collapsed;
-                MicrosoftAccount.Visibility = Visibility.Visible;
-                Facebook.Visibility = Visibility.Visible;
+                username_error.Visibility = Visibility.Collapsed;
             }
+
+            if(password == "")
+            {
+                password_error.Visibility = Visibility.Visible;
+                valid = false;
+            }
+            else
+            {
+                password_error.Visibility = Visibility.Collapsed;
+            }
+
+            return valid;
+        }
+
+        // Check if password & password confirmation matches, and all fields are not empty
+        private bool ValidateRegisterField(string username, string password, string password_confirm)
+        {
+            bool valid = true;
+
+            if (username == "")
+            {
+                username_error.Visibility = Visibility.Visible;
+                valid = false;
+            }
+            else
+            {
+                username_error.Visibility = Visibility.Collapsed;
+            }
+
+            if(password != "" && password_confirm != "")
+            {
+                if(password != password_confirm)
+                {
+                    valid = false;
+                    password_confirm_error.Text = "password & confirmation does not match";
+                    password_confirm_error.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    password_confirm_error.Visibility = Visibility.Collapsed;
+                }
+            }
+            else
+            {
+                if (password == "")
+                {
+                    password_error.Visibility = Visibility.Visible;
+                    valid = false;
+                }
+                else
+                {
+                    password_error.Visibility = Visibility.Collapsed;
+                }
+                if (password_confirm == "")
+                {
+                    password_confirm_error.Text = "required field";
+                    password_confirm_error.Visibility = Visibility.Visible;
+                    valid = false;
+                }
+                else
+                {
+                    password_confirm_error.Visibility = Visibility.Collapsed;
+                }
+            }
+
+            return valid;
+        }
+
+        private async void Login(string username, string password)
+        {
+            // Insert login process here
+        }
+
+        private async void Register(string username, string password)
+        {
+            // Insert register process here
+        }
+
+        // Event handler for login button, try to login when clicked
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            (sender as Button).Visibility = Visibility.Collapsed;
+            ProgressRing.IsActive = true;
+
+            if (mode == "login")
+            {
+                if (ValidateLoginField(username.Text, password.Password))
+                {
+                    /*                              *
+                     *      Try to login here       *
+                     *                              */
+
+                    AppShell shell = Window.Current.Content as AppShell;
+
+                    // Do not repeat app initialization when the Window already has content,
+                    // just ensure that the window is active
+                    if (shell == null)
+                    {
+                        // Create a AppShell to act as the navigation context and navigate to the first page
+                        shell = new AppShell();
+
+                        // Set the default language
+                        shell.Language = Windows.Globalization.ApplicationLanguages.Languages[0];
+                    }
+
+                    // Place our app shell in the current Window
+                    Window.Current.Content = shell;
+
+                    if (shell.AppFrame.Content == null)
+                    {
+                        // When the navigation stack isn't restored, navigate to the first page
+                        // suppressing the initial entrance animation.
+                        shell.AppFrame.Navigate(typeof(EventList), null, new Windows.UI.Xaml.Media.Animation.SuppressNavigationTransitionInfo());
+                    }
+
+                    Window.Current.Activate();
+                }
+            }
+            else
+            {
+                if (ValidateRegisterField(username.Text, password.Password, password_confirm.Password))
+                {
+                    /*                                *
+                     *      Try to register here      *
+                     *                                */
+                }
+            }
+
+            // Dismiss the progress ring and bring back the button when fail to login or register
+            ProgressRing.IsActive = false;
+            (sender as Button).Visibility = Visibility.Visible;
+        }
+
+        private void ChangeMode(object sender, RoutedEventArgs e)
+        {
+            if(mode == "login")
+            {
+                mode = "register"; 
+                password_confirm_text.Visibility = Visibility.Visible;
+                password_confirm.Visibility = Visibility.Visible;
+                Button.Content = "Register";
+                NavigationLink.Content = "Already have an account? Sign in here";
+                Container.Height = 380;
+            }
+            else
+            {
+                mode = "login";
+                password_confirm_text.Visibility = Visibility.Collapsed;
+                password_confirm.Visibility = Visibility.Collapsed;
+                Button.Content = "Login";
+                NavigationLink.Content = "Don't have an account? Register here";
+                Container.Height = 320;
+            }
+
+            username_error.Visibility = Visibility.Collapsed;
+            password_error.Visibility = Visibility.Collapsed;
+            password_confirm_error.Visibility = Visibility.Collapsed;
         }
     }
 }

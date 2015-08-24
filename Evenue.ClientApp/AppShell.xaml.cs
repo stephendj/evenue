@@ -48,12 +48,6 @@ namespace Evenue.ClientApp
                     Symbol = Symbol.Edit,
                     Label = "Create Event",
                     DestPage = typeof(CreateEvent)
-                },
-                new NavMenuItem()
-                {
-                    Symbol = Symbol.SetLockScreen,
-                    Label = "Log Out",
-                    DestPage = typeof(LoginPage)
                 }
             });
 

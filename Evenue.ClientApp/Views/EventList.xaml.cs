@@ -47,7 +47,6 @@ namespace Evenue.ClientApp.Views
                 catch (Exception ex)
                 {
                     Debug.WriteLine(ex.StackTrace.ToString());
-                    ErrorText.Text = "Connectivity error, please try again";
                     ErrorText.Visibility = Visibility.Visible;
                 }
                 finally
@@ -59,18 +58,7 @@ namespace Evenue.ClientApp.Views
             }
             else
             {
-                var MatchEvents = GetMatchingEvents(query).ToList<Event>();
-                if(MatchEvents.Count > 0)
-                {
-                    ErrorText.Visibility = Visibility.Collapsed;
-                    eventListGridView.ItemsSource = MatchEvents;
-                }
-                else
-                {
-                    eventListGridView.ItemsSource = null;
-                    ErrorText.Text = "No Events Found";
-                    ErrorText.Visibility = Visibility.Visible;
-                }
+                eventListGridView.ItemsSource = GetMatchingEvents(query).ToList<Event>();
             }
         }
 

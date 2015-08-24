@@ -36,7 +36,7 @@
                                     QueryIcon="Find"
                                     TextChanged="SearchBox_TextChanged"
                                     SuggestionChosen="SearchBox_SuggestionChosen" 
-                                    Visibility="Collapsed" />
+                                    Visibility="Visible" />
                 </Grid>
             </ctl:PageHeader.HeaderContent>
         </ctl:PageHeader>

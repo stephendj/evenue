@@ -7,6 +7,8 @@
 *.mdf
 *.ldf
 packages
-bin
-obj
+Evenue.ClientApp/bin
+Evenue.BackEndAPI/bin
+Evenue.ClientApp/obj
+Evenue.BackEndAPI/obj
 .vs

@@ -1,8 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Evenue.ClientApp.Views;
 using Microsoft.WindowsAzure.MobileServices;
@@ -15,13 +26,11 @@ namespace Evenue.ClientApp
     sealed partial class App : Application
     {
         // Set the mobile service url
-        public static MobileServiceClient MobileService =
-            new MobileServiceClient(
-                "https://evenuebackendapi-code.azurewebsites.net",
-                "https://evenuebackendapi6dd2d0d6d39b4996904d8c524ab5462f.azurewebsites.net",
-                "cpMWMNajUuZNrqgHZBxDvpDOVoMaWE88"
-            );
-        // Data Source=tcp:sfjd8875i4.database.windows.net,1433;Initial Catalog=EvenueBackEndAPI_db;User ID=evenue@sfjd8875i4;Password=
+        public static MobileServiceClient MobileService = new MobileServiceClient(
+              "https://evenuebackendapi.azure-mobile.net/",
+              "KARbdHWrureQLvbQssugDIHQQFswjR45"
+        );
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
